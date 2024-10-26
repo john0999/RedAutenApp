@@ -43,14 +43,14 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Iniciar sesión", style = MaterialTheme.typography.headlineMedium)
+        Text("Iniciar Sesión", style = MaterialTheme.typography.headlineMedium)
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Correo electrónico") },
+            label = { Text("Correo Electrónico") },
             modifier = Modifier.fillMaxWidth()
         )
 
