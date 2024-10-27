@@ -1,6 +1,7 @@
 package com.example.redautenapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,8 +16,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : ComponentActivity() {
 
@@ -89,6 +92,7 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
                     .addOnCompleteListener { task ->
                         loading = false
                         if (task.isSuccessful) {
+                            saveUserToDatabase(auth.currentUser) // Guardar usuario en base de datos
                             Toast.makeText(context, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                             onLoginSuccess()
                         } else {
@@ -120,6 +124,7 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
                     .addOnCompleteListener { task ->
                         loading = false
                         if (task.isSuccessful) {
+                            saveUserToDatabase(auth.currentUser) // Guardar usuario en base de datos
                             Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
                         } else {
                             val errorMessage = task.exception?.message ?: "Error desconocido"
@@ -149,6 +154,7 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
                     .addOnCompleteListener { task ->
                         loading = false
                         if (task.isSuccessful) {
+                            saveUserToDatabase(auth.currentUser) // Guardar usuario en base de datos
                             Toast.makeText(context, "Inicio de sesión con Twitter exitoso", Toast.LENGTH_SHORT).show()
                             onLoginSuccess()
                         } else {
@@ -160,11 +166,62 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
             modifier = Modifier.size(48.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo), // Asegúrate de que esto sea el logo correcto
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Iniciar sesión con Twitter",
                 modifier = Modifier.fillMaxSize()
             )
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Botón de Microsoft
+        IconButton(
+            onClick = {
+                val provider = OAuthProvider.newBuilder("microsoft.com")
+                loading = true
+
+                auth.startActivityForSignInWithProvider(context as ComponentActivity, provider.build())
+                    .addOnCompleteListener { task ->
+                        loading = false
+                        if (task.isSuccessful) {
+                            saveUserToDatabase(auth.currentUser) // Guardar usuario en base de datos
+                            Toast.makeText(context, "Inicio de sesión con Microsoft exitoso", Toast.LENGTH_SHORT).show()
+                            onLoginSuccess()
+                        } else {
+                            val errorMessage = task.exception?.message ?: "Error desconocido"
+                            Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            },
+            modifier = Modifier.size(48.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.micro),
+                contentDescription = "Iniciar Sesión con Microsoft",
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+    }
+}
+
+// Función para guardar usuario en Firestore
+fun saveUserToDatabase(user: FirebaseUser?) {
+    user?.let {
+        val database = FirebaseFirestore.getInstance()
+        val userMap = mapOf(
+            "uid" to it.uid,
+            "name" to (it.displayName ?: ""),
+            "email" to (it.email ?: "")
+        )
+
+        database.collection("users").document(it.uid)
+            .set(userMap)
+            .addOnSuccessListener {
+                Log.d("Firebase", "Usuario guardado exitosamente en Firestore")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firebase", "Error guardando usuario: $e")
+            }
     }
 }
 
