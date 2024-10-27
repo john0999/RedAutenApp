@@ -74,6 +74,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore")
     implementation ("org.twitter4j:twitter4j-core:4.0.7")
+    implementation("com.google.firebase:firebase-analytics")
 
     implementation ("androidx.compose.ui:ui:1.3.1")
     implementation ("androidx.compose.material:material:1.3.1")

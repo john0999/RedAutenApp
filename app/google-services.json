@@ -1,26 +1,37 @@
 {
   "project_info": {
-    "project_number": "934969795053",
-    "project_id": "login-t-1d4c0",
-    "storage_bucket": "login-t-1d4c0.appspot.com"
+    "project_number": "930747700508",
+    "firebase_url": "https://base-cb91c-default-rtdb.firebaseio.com",
+    "project_id": "base-cb91c",
+    "storage_bucket": "base-cb91c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:934969795053:android:b7f7da2a9acdc68c56c7e4",
+        "mobilesdk_app_id": "1:930747700508:android:ef8b6e575cc4539b2516d9",
         "android_client_info": {
           "package_name": "com.example.redautenapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "930747700508-qs55m00phue5srto2cnojeaec1h8faii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDKjoS2Qc1sKFItpGHwGKFvEaH64u8Ctmo"
+          "current_key": "AIzaSyCZHmeVDjz-gqUr0CTSKwJqMa-iV8KssK4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930747700508-qs55m00phue5srto2cnojeaec1h8faii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
