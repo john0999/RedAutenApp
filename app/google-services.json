@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "934969795053",
+    "project_id": "login-t-1d4c0",
+    "storage_bucket": "login-t-1d4c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934969795053:android:b7f7da2a9acdc68c56c7e4",
+        "android_client_info": {
+          "package_name": "com.example.redautenapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKjoS2Qc1sKFItpGHwGKFvEaH64u8Ctmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
