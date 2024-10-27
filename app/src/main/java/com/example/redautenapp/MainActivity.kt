@@ -84,7 +84,6 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón para iniciar sesión
         Button(
             onClick = {
                 loading = true
@@ -92,7 +91,7 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
                     .addOnCompleteListener { task ->
                         loading = false
                         if (task.isSuccessful) {
-                            saveUserToDatabase(auth.currentUser) // Guardar usuario en base de datos
+                            saveUserToDatabase(auth.currentUser)
                             Toast.makeText(context, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                             onLoginSuccess()
                         } else {
@@ -115,8 +114,6 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
         }
 
         Spacer(modifier = Modifier.height(8.dp))
-
-        // Botón para registrarse
         Button(
             onClick = {
                 loading = true
@@ -144,7 +141,6 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón de Twitter
         IconButton(
             onClick = {
                 val provider = OAuthProvider.newBuilder("twitter.com")
@@ -174,7 +170,6 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Botón de Microsoft
         IconButton(
             onClick = {
                 val provider = OAuthProvider.newBuilder("microsoft.com")
@@ -204,7 +199,6 @@ fun LoginScreen(auth: FirebaseAuth, onLoginSuccess: () -> Unit) {
     }
 }
 
-// Función para guardar usuario en Firestore
 fun saveUserToDatabase(user: FirebaseUser?) {
     user?.let {
         val database = FirebaseFirestore.getInstance()
@@ -227,6 +221,10 @@ fun saveUserToDatabase(user: FirebaseUser?) {
 
 @Composable
 fun HomeScreen(auth: FirebaseAuth, onLogout: () -> Unit) {
+    val currentUser = auth.currentUser
+    val userName = currentUser?.displayName ?: "Usuario"
+    val userEmail = currentUser?.email ?: "Correo no disponible"
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -238,7 +236,8 @@ fun HomeScreen(auth: FirebaseAuth, onLogout: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Usuario: ${auth.currentUser?.email ?: "Usuario de Twitter"}")
+        Text("Nombre de usuario: $userName")
+        Text("Correo: $userEmail")
 
         Spacer(modifier = Modifier.height(16.dp))
 
