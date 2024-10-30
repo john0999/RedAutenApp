@@ -1,9 +1,5 @@
 package com.example.redautenapp.ui.screens.login
 
-import com.example.redautenapp.mvi.action.AuthActions.handleLogin
-import com.example.redautenapp.mvi.action.AuthActions.handleRegistration
-import com.example.redautenapp.mvi.action.AuthActions.handleTwitterLogin
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -17,6 +13,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import com.example.redautenapp.R
+import com.example.redautenapp.mvi.action.handleLogin
+import com.example.redautenapp.mvi.action.handleRegistration
+import com.example.redautenapp.mvi.action.handleTwitterLogin
 import com.google.firebase.auth.FirebaseAuth
 
 
